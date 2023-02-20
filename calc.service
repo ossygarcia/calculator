@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve calc
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/src/calculator
+Environment="PATH=/src/calculator/venv/bin"
+ExecStart=/src/calculator/venv/bin/gunicorn --workers 2 --bind unix:calc.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
